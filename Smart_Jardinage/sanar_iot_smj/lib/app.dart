@@ -1,8 +1,8 @@
- import 'package:flutter/material.dart';
-/*import 'package:yobalema_app/sanar_IoT/accueil.dart' as prefix0;
-import 'package:yobalema_app/sanar_IoT/connexion.dart';
-import 'package:yobalema_app/sanar_IoT/inscription.dart';
-import 'package:yobalema_app/sanar_IoT/tableJardin.dart';*/
+import 'package:flutter/material.dart';
+import 'package:sanar_iot_smj/views/accueil.dart';
+import 'package:sanar_iot_smj/views/connexion.dart';
+import 'package:sanar_iot_smj/views/inscription.dart';
+import 'package:sanar_iot_smj/views/tableJardin.dart';
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
       //home: prefix0.Accueil(),
       home: Connexion(),
       routes: <String,WidgetBuilder>{
-        '/home':(BuildContext context)=> new prefix0.Accueil(),
+        '/home':(BuildContext context)=> new Accueil(),
         '/signin':(BuildContext context)=> new Inscription(),
         '/login':(BuildContext context)=> new Connexion(),
         '/table':(BuildContext context)=> new TableJardin()

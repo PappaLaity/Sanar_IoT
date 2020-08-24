@@ -4,7 +4,7 @@
 
 * Soucis de Preservation de l'environnement urbain  !
 * Manque de Terre cultivable !
-* Pratique agricole dépourvu de technologies (Gestion de Ressources)
+* Probleme de Gestion de Ressources
 
 ## SOLUTION
 
@@ -67,3 +67,7 @@
         1. 6 planches 4metres pour les rebords et les pieds  (6000f la placnche de 4 metres)!
         2. 20 traverse (planche plus epaisse 2000f les 4)
         3. Une bâche de 3m
+
+### Comments
+
+* Pratique agricole dépourvu de technologies (Gestion de Ressources)

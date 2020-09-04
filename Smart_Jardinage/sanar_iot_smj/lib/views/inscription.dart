@@ -1,11 +1,10 @@
 import 'package:flutter/cupertino.dart';
 /**
  * Inscription 
- * Prenom 
- * Nom
- * Adresses
+ * Nom // Username
  * ID (numero Tel / Email) 
  * PWD
+ * Gateway ID
  * link Vers Connexion
  * 4 chiffres pour confirmer
  */
@@ -31,6 +30,7 @@ class InscriptionState extends State<Inscription> {
   final TextEditingController _controllerUser = new TextEditingController();
   final TextEditingController _controllerNumber = new TextEditingController();
   final TextEditingController _controllerPassword = new TextEditingController();
+  //final TextEditingController _controllerGID = new TextEditingController();
 
   onPressed(BuildContext context) {
 /*    print(pseudo);
@@ -40,7 +40,6 @@ class InscriptionState extends State<Inscription> {
     print(_controllerPassword.text);
     print(_controllerNumber.text);*/
     //Navigator.of(context).pushReplacementNamed('/home');
-
   }
 
   void onChanged(value, flag) {
@@ -93,8 +92,8 @@ class InscriptionState extends State<Inscription> {
                   padding: EdgeInsets.fromLTRB(90, 50, 0.0, 0.0),
                   child: Text(
                     'INSCRIPTION',
-                    style: TextStyle(fontSize: 20.0,
-                    fontStyle: FontStyle.italic),
+                    style:
+                        TextStyle(fontSize: 20.0, fontStyle: FontStyle.italic),
                   ),
                 )
               ],
@@ -114,7 +113,15 @@ class InscriptionState extends State<Inscription> {
                     labelStyle: TextStyle(),
                     hintText: "Votre Nom d'utilisateur"),
                 // onChanged: (String value){onChanged(value,1);},
-              ),
+              ),/*
+              TextField(
+                controller: _controllerGID,
+                decoration: InputDecoration(
+                    labelText: 'Gateway ID ',
+                    labelStyle: TextStyle(),
+                    hintText: "l'Identifiant de la Passerelle"),
+                //onChanged: (String value){onChanged(value,2);}
+              ),*/
               TextField(
                 controller: _controllerNumber,
                 decoration: InputDecoration(
@@ -151,18 +158,18 @@ class InscriptionState extends State<Inscription> {
                 height: 10.0,
               ),
               Container(
-                alignment: Alignment(1.0,0.0),
+                alignment: Alignment(1.0, 0.0),
                 child: InkWell(
-                  onTap: (){
+                  onTap: () {
                     Navigator.of(context).pop('/signin');
                   },
                   child: Text(
                     'Se Connecter',
                     style: TextStyle(
-                      color: Colors.teal,
-                      fontStyle: FontStyle.italic,
-                      fontSize: 17.0,
-                      decoration: TextDecoration.underline),
+                        color: Colors.teal,
+                        fontStyle: FontStyle.italic,
+                        fontSize: 17.0,
+                        decoration: TextDecoration.underline),
                   ),
                 ),
               )

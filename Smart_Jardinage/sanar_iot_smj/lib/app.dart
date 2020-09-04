@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sanar_iot_smj/views/accueil.dart';
+import 'package:sanar_iot_smj/views/addTable.dart';
 import 'package:sanar_iot_smj/views/connexion.dart';
 import 'package:sanar_iot_smj/views/inscription.dart';
 import 'package:sanar_iot_smj/views/tableJardin.dart';
@@ -30,7 +31,9 @@ class MyApp extends StatelessWidget {
         '/home':(BuildContext context)=> new Accueil(),
         '/signin':(BuildContext context)=> new Inscription(),
         '/login':(BuildContext context)=> new Connexion(),
-        '/table':(BuildContext context)=> new TableJardin()
+        '/table':(BuildContext context)=> new TableJardin(),
+        '/addTable':(BuildContext context)=> new AddTable()
+
       }
     );
   }

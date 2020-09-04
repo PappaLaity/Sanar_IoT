@@ -14,6 +14,8 @@ class Accueil extends StatefulWidget {
 }
 
 class AcceuilState extends State<Accueil> {
+
+  // Recuperer a la DB la liste des tables
   /*static String device = "b827ebfbd8ad_15";
   static String urlDevices =
       "https://api.waziup.io/api/v2/devices/"+device;
@@ -40,6 +42,41 @@ class AcceuilState extends State<Accueil> {
     this.getJsonData();
   }*/
 
+  /*var Listable2 = {
+    "gateway_id":"b827ebfbd8ad",
+    "date_modified":"2020-08-17T18:09:43Z",
+    "owner":"pappalaity@gmail.com",
+    "name":"b827ebfbd8ad_15",
+    "id":"b827ebfbd8ad_15",
+    "sensors":[
+      {"value":
+        {"date_received":"2020-08-17T18:09:04Z","value":859,"timestamp":"2020-07-24T17:01:56Z"},
+        "name":"HA",
+        "id":"HA"
+      },
+      {"value":{
+        "date_received":"2020-08-17T18:09:19Z",
+        "value":32,
+        "timestamp":"2020-08-17T18:08:00Z"
+      },
+        "name":"HM",
+        "id":"HM"
+      },
+      {"value":{"date_received":"2020-08-17T18:09:43Z","value":868,"timestamp":"2020-08-17T18:07:00Z"},"name":"SM","id":"SM"
+      },
+      {"value":{
+        "date_received":"2020-08-17T18:09:04Z",
+        "value":26,
+        "timestamp":"2020-08-17T18:07:36Z"
+      },
+        "name":"TC",
+        "id":"TC"
+      }
+      ],
+    "actuators":[],
+    "date_created":"2020-07-24T16:58:44Z"
+  };
+*/
   List ListTable = [
     {
       'Nom': 'Table 1',
@@ -61,52 +98,47 @@ class AcceuilState extends State<Accueil> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-//        backgroundColor: Colors.brown,
+        leading: Icon(Icons.local_florist,
+        size:36,
+        color: Colors.black,),
           title: Text('SMART MICRO JARDINAGE',
               style: TextStyle(fontFamily: 'Monserrat', fontSize: 20.0)),
-          actions: <Widget>[
-            /*IconButton(icon: Icon(Icons.camera_alt),
-          onPressed: (){},)*/
-          ],
+          /*actions: <Widget>[
+            IconButton(icon: Icon(Icons.add,color: Colors.black,size: 36.0,),
+          onPressed: (){Navigator.of(context).pushReplacementNamed('/addTable');},)
+          ],*/
         ),
         body:
-            /*new Container(
-        child: ListView(
-          children: <Widget>[
-            ListTile(
-              title: Text('Table Alpha',style: TextStyle(),),
-              subtitle: Text('table de culture de Carotte'),
-              leading: Icon(Icons.mode_edit),
-              contentPadding: EdgeInsets.all(10.0),
-              onTap: (){
-                
-              },
-            )
-          ],
-        ),
-      ),*/
             ListView.builder(
-          itemCount: ListTable.length,
-          itemBuilder: (BuildContext context, int index) {
-            return new Card(
-              child: Container(
-                padding: EdgeInsets.all(15.0),
-                child: Column(
-                  children: <Widget>[
-                    ListTile(
-                      onTap: () {
-                        Navigator.of(context).pushNamed('/table');
-                      },
-                      title: Text('Table ${index}'),
-                      subtitle: Text(
-                          'Culture de ' + ListTable[index]['Type Culture']),
-                      leading: Icon(Icons.touch_app),
+            itemCount: ListTable.length,
+              itemBuilder: (BuildContext context, int index) {
+                return new Card(
+                  child: Container(
+                    padding: EdgeInsets.all(15.0),
+                    child: Column(
+                      children: <Widget>[
+                        ListTile(
+                          onTap: () {
+                            Navigator.of(context).pushNamed('/table');
+                          },
+                          title: Text('Table ${index}'),
+                          subtitle: Text(
+                              'Culture de ' + ListTable[index]['Type Culture']),
+                          leading: Icon(Icons.touch_app),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-              ),
-            );
-          },
-        ));
+                  ),
+                );
+              },
+            ),
+      floatingActionButton: FloatingActionButton(
+        onPressed:(){
+          Navigator.of(context).pushNamed('/addTable');
+        },
+        child:Icon(Icons.add,size: 36.0,color: Colors.white,),
+        backgroundColor: Colors.teal,
+      ),
+    );
   }
 }

@@ -38,6 +38,7 @@ class TableState extends State<TableJardin> {
           Container(
             padding: EdgeInsets.all(25.0),
             child: Card(
+              color: Colors.white,
               margin: EdgeInsets.all(5.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -58,46 +59,72 @@ class TableState extends State<TableJardin> {
                       SizedBox(
                         width: 5.0,
                       ),
-                      Icon(Icons.tonality),
+                      /*Icon(Icons.tonality,
+                        color: Colors.green[200],
+                        size: 65.0,
+                      ),*/
                       //Text(TableInfo['Tmp']),
+                      Image.asset('images/tmpe.png',
+                        height: 80.0, width: 80.0,),
                       SizedBox(
-                        width: 10.0,
+                        width: 0.0,
                       ),
-                      Text('TEMPERATURE'),
+                      Text('36 Deg',style: TextStyle(
+                          fontSize: 25.0
+                      ),), // TEmperature
                       SizedBox(
-                        width: 50.0,
+                        width: 20.0,
                       ),
-                      Icon(Icons.tonality),
-                      //Text(TableInfo['Tmp']),
+                      /*Icon(Icons.opacity,
+                        color: Colors.blue[500],
+                        size: 65.0,),
+                      //Text(TableInfo['Tmp']),*/
+                      Image.asset('images/hm.png',
+                        height: 80.0, width: 80.0,),
                       SizedBox(
-                        width: 10.0,
+                        width: 0.0,
                       ),
-                      Text('Humidity'),
+                      Text('43%',style: TextStyle(
+                        fontSize: 25.0
+                      ),), // humidity
                     ],
                   ),
                   SizedBox(
-                        height: 30.0,
+                        height: 50.0,
                       ),
                   Row(
                     children: <Widget>[
                       SizedBox(
                         width: 5.0,
                       ),
-                      Icon(Icons.tonality),
-                      //Text(TableInfo['Tmp']),
+                      /*
+                      Icon(Icons.tonality,
+                        color: Colors.green[200],
+                        size: 65.0,),
+                      //Text(TableInfo['Tmp']),*/
+                      Image.asset('images/stmp.jpeg',
+                      height: 80.0, width: 80.0,),
                       SizedBox(
-                        width: 10.0,
+                        width: 5.0,
                       ),
-                      Text('SOIL TEMP'),
+                      Text('49 Deg',style: TextStyle(
+                          fontSize: 25.0
+                      ),), // Soil Temp
                       SizedBox(
-                        width: 50.0,
+                        width: 25.0,
                       ),
-                      Icon(Icons.tonality),
-                      //Text(TableInfo['Tmp']),
+/*                      Icon(Icons.tonality,
+                        color: Colors.green[200],
+                        size: 65.0,),
+                      //Text(TableInfo['Tmp']),*/
+                      Image.asset('images/shm.png',
+                        height: 80.0, width: 80.0,),
                       SizedBox(
-                        width: 10.0,
+                        width: 07.0,
                       ),
-                      Text('SOIL Hum'),
+                      Text('75%',style: TextStyle(
+                          fontSize: 25.0
+                      ),), // Soil Hum
                     ],
                   )
                 ],

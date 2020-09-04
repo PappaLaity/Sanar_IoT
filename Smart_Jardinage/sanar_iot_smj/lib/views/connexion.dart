@@ -1,35 +1,81 @@
 /**
  * Bienvenue Nom Appli
- * ID (Numero or mail) - PWD
+ * ID (Numero or mail or Username) - PWD
  * Pas de Compte Inscription
  */
 import 'package:flutter/material.dart';
+import 'package:sanar_iot_smj/db/database_helper.dart';
+import 'package:sanar_iot_smj/models/user.dart';
+import 'package:sanar_iot_smj/views/connexion_presenter.dart';
 
 class Connexion extends StatefulWidget {
   @override
  ConnexionState createState() => ConnexionState();
 }
 
-class ConnexionState extends State <Connexion> {
-  String numero = '';
-  String password = '';
-  String erreur = '';
-  final TextEditingController _controllerNumber = new TextEditingController();
+class ConnexionState extends State <Connexion> implements ConnexionContract{
+
+
+  final TextEditingController _controllerUsername = new TextEditingController();
   final TextEditingController _controllerPassword = new TextEditingController();
 
+  BuildContext _ctx;
+  bool isloading;
+  final formkey = new GlobalKey<FormState>();
+  final scaffoldKey = new GlobalKey<ScaffoldState>();
+  String _username,_password;
+
+  ConnexionPresenter _presenter;
+  ConnexionState(){
+    _presenter = new ConnexionPresenter(this);
+  }
+
   onPressed(BuildContext context) {
-/*    print(pseudo);
-    print(numero);
-    print(password);*/
-    /*print(_controllerPassword.text);
-    print(_controllerNumber.text);*/
+
+    if( _controllerUsername.text!=null &&  _controllerPassword.text !=null){
+
+      setState(() {
+        isloading = true;
+        _username = _controllerUsername.text;
+        _password = _controllerPassword.text;
+      });
+      _presenter.doLogin(_username, _password);
+
+    }
 
     // si les infos sont exactes
-    Navigator.of(context).pushReplacementNamed('/home');  }
+    //Navigator.of(context).pushReplacementNamed('/home');
+    }
+
+    void _showSnackBar(String text){
+    scaffoldKey.currentState.showSnackBar(new SnackBar(content: Text(text)));
+
+    }
+
+  @override
+  void onLoginError(String error) {
+    // TODO: implement onLoginError
+    _showSnackBar(error);
+    setState(() {
+      isloading = false;
+    });
+  }
+
+  @override
+  void onLoginSuccess(User user) async {
+    // TODO: implement onLoginSuccess
+    _showSnackBar(user.toString());
+    setState(() {
+      isloading = false;
+    });
+    var db = DatabaseHelper();
+    await db.saveUser(user);
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scaffoldKey,
         /*appBar: AppBar(
         title: Text('SMART MICRO JARDINAGE',
         style:TextStyle(
@@ -75,7 +121,7 @@ class ConnexionState extends State <Connexion> {
               child: Column(
             children: <Widget>[
               TextField(
-                controller: _controllerNumber,
+                controller: _controllerUsername,
                 decoration: InputDecoration(
                     labelText: 'Numero',
                     labelStyle: TextStyle(),
@@ -144,4 +190,6 @@ class ConnexionState extends State <Connexion> {
       ),
     ));
   }
+
+
 }

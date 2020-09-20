@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 /**
  * Information sur une table... 
  * Nom Table, Type de Culture, Duree de Vie
@@ -10,6 +12,7 @@
 
 // L'id du table a passer en param
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class TableJardin extends StatefulWidget {
   @override
@@ -17,6 +20,75 @@ class TableJardin extends StatefulWidget {
 }
 
 class TableState extends State<TableJardin> {
+
+  static String device = "b827ebfbd8ad_15";
+  static String urlDevices ="https://api.waziup.io/api/v2/devices/"+device;
+  List data;
+  int TC = 0 ,SM = 0,HM=0;
+
+  Future<String> getJsonData() async {
+    //var response = '';
+      var response = await http.get(
+        Uri.encodeFull(urlDevices),
+        headers: {"Accept": "application/json"}
+      );
+      print('Data');
+      //print(response.body);
+      setState((){
+          var convertDataToJson =json.decode(response.body);// JSON.decode(response.body);
+          data = convertDataToJson['sensors'];
+          TC = data[1]['value']['value'];
+          SM = data[2]['value']['value'];
+          HM = data[3]['value']['value'];
+      });
+    print(data[1]['value']['value']); //Air Humidity HM
+    print(data[2]['value']['value']); // SM 2
+    print(data[3]['value']['value']); // TC
+    return "success"; 
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    this.getJsonData();
+  }
+
+
+  /*var Listable2 = {
+    "gateway_id":"b827ebfbd8ad",
+    "date_modified":"2020-08-17T18:09:43Z",
+    "owner":"pappalaity@gmail.com",
+    "name":"b827ebfbd8ad_15",
+    "id":"b827ebfbd8ad_15",
+    "sensors":[
+      {"value":
+        {"date_received":"2020-08-17T18:09:04Z","value":859,"timestamp":"2020-07-24T17:01:56Z"},
+        "name":"HA",
+        "id":"HA"
+      },
+      {"value":{
+        "date_received":"2020-08-17T18:09:19Z",
+        "value":32,
+        "timestamp":"2020-08-17T18:08:00Z"
+      },
+        "name":"HM",
+        "id":"HM"
+      },
+      {"value":{"date_received":"2020-08-17T18:09:43Z","value":868,"timestamp":"2020-08-17T18:07:00Z"},"name":"SM","id":"SM"
+      },
+      {"value":{
+        "date_received":"2020-08-17T18:09:04Z",
+        "value":26,
+        "timestamp":"2020-08-17T18:07:36Z"
+      },
+        "name":"TC",
+        "id":"TC"
+      }
+      ],
+    "actuators":[],
+    "date_created":"2020-07-24T16:58:44Z"
+  };
+*/
   var TableInfo = {
     'Nom': 'Table 1',
     'Type Culture': 'Carotte',
@@ -69,7 +141,7 @@ class TableState extends State<TableJardin> {
                       SizedBox(
                         width: 0.0,
                       ),
-                      Text('36 Deg',style: TextStyle(
+                      Text('$TC Deg',style: TextStyle(
                           fontSize: 25.0
                       ),), // TEmperature
                       SizedBox(
@@ -84,7 +156,7 @@ class TableState extends State<TableJardin> {
                       SizedBox(
                         width: 0.0,
                       ),
-                      Text('43%',style: TextStyle(
+                      Text("$HM %",style: TextStyle(
                         fontSize: 25.0
                       ),), // humidity
                     ],
@@ -122,7 +194,7 @@ class TableState extends State<TableJardin> {
                       SizedBox(
                         width: 07.0,
                       ),
-                      Text('75%',style: TextStyle(
+                      Text('$SM %',style: TextStyle(
                           fontSize: 25.0
                       ),), // Soil Hum
                     ],

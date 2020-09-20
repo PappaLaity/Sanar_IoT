@@ -1,11 +1,12 @@
-class Table {
+class TableJardin {
+  int id;
   String device_id;
   String tableName;
   String cultureType;
 
-  Table(this.device_id, this.tableName, this.cultureType);
+  TableJardin(this.device_id, this.tableName, this.cultureType);
 
-  Table.map(dynamic obj){
+  TableJardin.map(dynamic obj){
     this.device_id = obj['deviceId'];
     this.tableName = obj['tableName'];
     this.cultureType = obj['cultureType'];

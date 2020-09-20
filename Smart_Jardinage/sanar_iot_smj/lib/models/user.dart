@@ -1,8 +1,9 @@
 class User {
+  int id ;
   String username;
-  String email;
+  //String email;
   String password;
-  String gatewayId;
+  //String gatewayId;
 
   User(this.username, this.password);
 

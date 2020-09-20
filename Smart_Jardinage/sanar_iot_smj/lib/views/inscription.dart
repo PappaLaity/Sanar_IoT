@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
  * Nom // Username
  * ID (numero Tel / Email) 
  * PWD
- * Gateway ID
  * link Vers Connexion
  * 4 chiffres pour confirmer
  */
@@ -14,6 +13,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:sanar_iot_smj/db/database_helper.dart';
+import 'package:sanar_iot_smj/models/user.dart';
 
 class Inscription extends StatefulWidget {
   @override
@@ -25,24 +26,50 @@ class InscriptionState extends State<Inscription> {
   String numero = '';
   String password = '';
   String successInscription = '';
-  // l'un des champs est vide
   String erreur = '';
+  User user;
+  DatabaseHelper dbHelper;
+
   final TextEditingController _controllerUser = new TextEditingController();
   final TextEditingController _controllerNumber = new TextEditingController();
   final TextEditingController _controllerPassword = new TextEditingController();
-  //final TextEditingController _controllerGID = new TextEditingController();
 
-  onPressed(BuildContext context) {
-/*    print(pseudo);
-    print(numero);
-    print(password);
-    print(_controllerUser.text);
-    print(_controllerPassword.text);
-    print(_controllerNumber.text);*/
-    //Navigator.of(context).pushReplacementNamed('/home');
+  @override
+  void initState() {
+    super.initState();
+    dbHelper = DatabaseHelper();
   }
 
-  void onChanged(value, flag) {
+  onPressed(BuildContext context) {
+    //Navigator.of(context).pushReplacementNamed('/home');
+    if (true) {
+      setState(() {
+        pseudo = _controllerUser.text;
+        password = _controllerPassword.text;
+        user = User(pseudo, password);
+        print(user.getUsername);
+        print(user.getPassword);
+      });
+      var utilisateur = dbHelper.saveUser(this.user);
+      utilisateur.then((data) {
+        if (data != null) {
+          print('Inscription Reussie');
+          print(data.getUsername);
+        }
+      }).catchError((onError){
+        print('Erreur quelque pqrt');
+        print(onError);
+      });
+      //Navigator.of(context).pushReplacementNamed('/home');
+
+    } else {
+      setState(() {
+        erreur = "l'un des champs est nul";
+      });
+    }
+  }
+
+ /* void onChanged(value, flag) {
     setState(() {
       if (flag == 1) {
         pseudo = value;
@@ -57,7 +84,7 @@ class InscriptionState extends State<Inscription> {
     });
 
 //    print(value);
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {
@@ -113,7 +140,8 @@ class InscriptionState extends State<Inscription> {
                     labelStyle: TextStyle(),
                     hintText: "Votre Nom d'utilisateur"),
                 // onChanged: (String value){onChanged(value,1);},
-              ),/*
+              ),
+              /*
               TextField(
                 controller: _controllerGID,
                 decoration: InputDecoration(
@@ -172,6 +200,12 @@ class InscriptionState extends State<Inscription> {
                         decoration: TextDecoration.underline),
                   ),
                 ),
+              ),
+              SizedBox(
+                height: 10.0,
+              ),
+              Center(
+                child: Text(erreur, style: TextStyle()),
               )
             ],
           )),

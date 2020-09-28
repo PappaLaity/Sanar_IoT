@@ -1,25 +1,28 @@
+import 'package:sanar_iot_smj/db/database_helper.dart';
+
+
 class TableJardin {
-  int id;
-  String device_id;
+  int tableId;
   String tableName;
-  String cultureType;
+  String tableDevices;
+  String tableCulture;
 
-  TableJardin(this.device_id, this.tableName, this.cultureType);
+  TableJardin(this.tableId,this.tableName,this.tableDevices, this.tableCulture);
 
-  TableJardin.map(dynamic obj){
-    this.device_id = obj['deviceId'];
+  TableJardin.map(Map<String,dynamic> obj){
+    this.tableId = obj['tableId'];
     this.tableName = obj['tableName'];
-    this.cultureType = obj['cultureType'];
+    this.tableDevices=obj['tableDevices'];
+    this.tableCulture= obj['tableCulture'];
   }
 
-  Map <String, dynamic> toMap(){
-
-    var map  = new Map<String,dynamic>();
-    map['deviceId'] =this.device_id;
-    map['tableName'] =this.tableName;
-    map['cultureName'] =this.cultureType;
-    return map;
-
+  Map<String, dynamic> toMap(){
+   return{
+     DatabaseHelper.tableId:tableId,
+     DatabaseHelper.tableName:tableName,
+     DatabaseHelper.tableDevices:tableDevices,
+     DatabaseHelper.tableCulture:tableCulture
+   };
   }
 
 }

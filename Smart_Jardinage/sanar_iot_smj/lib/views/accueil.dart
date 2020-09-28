@@ -8,6 +8,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:sanar_iot_smj/db/database_helper.dart';
+import 'package:sanar_iot_smj/models/table.dart';
 
 class Accueil extends StatefulWidget {
   @override
@@ -36,8 +37,9 @@ class AcceuilState extends State<Accueil> {
     }
   ];
 
-  Future<List<Table>> tablesculture;
-  DatabaseHelper dbhelper= DatabaseHelper();
+
+  List<Table> tablesculture = [];
+  final dbHelper = DatabaseHelper.instance;
   
 
   @override
@@ -87,4 +89,16 @@ class AcceuilState extends State<Accueil> {
       ),
     );
   }
+
+  void _AllTables() async {
+
+    final allRows = await dbHelper.queryAllRows();
+    tablesculture.clear();
+
+    allRows.forEach((row) => tablesculture.add(TableJardin.map(row)));
+
+    print('Query done.');
+    setState(() {}); 
+
+  }  
 }

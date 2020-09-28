@@ -41,7 +41,7 @@ class ConnexionState extends State<Connexion> implements ConnexionContract {
   @override
   void initState() {
     super.initState();
-    dbHelper = DatabaseHelper();
+    dbHelper = DatabaseHelper.instance;
     //refreshUserList();
     erreur = '';
   }
@@ -114,7 +114,7 @@ class ConnexionState extends State<Connexion> implements ConnexionContract {
     setState(() {
       isloading = false;
     });
-    var db = DatabaseHelper();
+    var db = DatabaseHelper.instance;
     await db.saveUser(user);
   }
 

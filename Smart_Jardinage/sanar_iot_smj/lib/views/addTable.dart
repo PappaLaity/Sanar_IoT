@@ -8,29 +8,39 @@ class AddTable extends StatefulWidget {
 }
 
 class _AddTableState extends State<AddTable> {
+ 
   TextEditingController controllerTableName = new TextEditingController();
   TextEditingController controllerCultureType = new TextEditingController();
   TextEditingController controllerDeviceId = new TextEditingController();
+  TextEditingController controllerTableId = new TextEditingController();
   DatabaseHelper dbHelper;
+  
   Future<TableJardin> tab;
+
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>(); 
+
   @override
   void initState() {
     super.initState();
-    dbHelper= new DatabaseHelper();
+    dbHelper = DatabaseHelper.instance;
   }
+
+    void _showMessageInScaffold(String message){
+    _scaffoldKey.currentState.showSnackBar(
+        SnackBar(
+          content: Text(message),
+        )
+    );
+  } 
 
   void addTableInf(BuildContext context){
     print('Adding Table');
     setState(() {
-      TableJardin table =  TableJardin(controllerDeviceId.text,controllerTableName.text,controllerCultureType.text);
-      tab = dbHelper.saveTable(table);
-      tab.then((onValue){
-        print('Data');
-        print(onValue);
-      }).catchError((onError){
-        print('Error object');
-        print(onError);
-      });
+      TableJardin table =  TableJardin(int.parse(controllerTableId.text), controllerDeviceId.text,controllerTableName.text,controllerCultureType.text);
+     final tabId = dbHelper.insertTable(table);
+      
+     print('table $tabId is created');
+
     });
   }
   
@@ -48,7 +58,16 @@ class _AddTableState extends State<AddTable> {
           child: Column(
             children: [
               TextField(
+                controller: controllerTableId,
+                decoration: InputDecoration(
+                    labelText: 'Device ID',
+                    labelStyle: TextStyle(),
+                    hintText: "Donner l'identifiant du Nouveau Equipement"),
+                // onChanged: (String value){onChanged(value,1);},
+              ),
+              TextField(
                 controller: controllerDeviceId,
+                keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                     labelText: 'Device ID',
                     labelStyle: TextStyle(),

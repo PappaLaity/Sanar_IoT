@@ -37,7 +37,7 @@ class InscriptionState extends State<Inscription> {
   @override
   void initState() {
     super.initState();
-    dbHelper = DatabaseHelper();
+    dbHelper = DatabaseHelper.instance;
   }
 
   onPressed(BuildContext context) {

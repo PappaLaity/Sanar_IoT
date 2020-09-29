@@ -7,7 +7,7 @@ class TableJardin {
   String tableDevices;
   String tableCulture;
 
-  TableJardin(this.tableId,this.tableName,this.tableDevices, this.tableCulture);
+  TableJardin(this.tableName,this.tableDevices, this.tableCulture);
 
   TableJardin.map(Map<String,dynamic> obj){
     this.tableId = obj['tableId'];

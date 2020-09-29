@@ -60,11 +60,10 @@ class DatabaseHelper {
     return user;
   }
 
-  Future<int> insertTable(TableJardin tableMJ) async {
+  Future<TableJardin> insertTable(TableJardin tableMJ) async {
     Database database = await instance.db;
-    
-    return await database.insert(tableJardin, tableMJ.toMap());
-    
+    tableMJ.tableId= await database.insert(tableJardin, tableMJ.toMap());
+    return tableMJ;
   }
 
   //All Tables 

@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
         '/home':(BuildContext context)=> new Accueil(),
         '/signin':(BuildContext context)=> new Inscription(),
         '/login':(BuildContext context)=> new Connexion(),
-        '/table':(BuildContext context)=> new TableJardin(),
+        '/table':(BuildContext context)=> new TableJardinClass(),
         '/addTable':(BuildContext context)=> new AddTable()
 
       }

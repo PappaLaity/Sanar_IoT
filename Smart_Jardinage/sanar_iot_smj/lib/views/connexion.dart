@@ -19,7 +19,6 @@ class ConnexionState extends State<Connexion> implements ConnexionContract {
   final TextEditingController _controllerUsername = new TextEditingController();
   final TextEditingController _controllerPassword = new TextEditingController();
 
-  BuildContext _ctx;
   bool isloading;
   final formkey = new GlobalKey<FormState>();
   final scaffoldKey = new GlobalKey<ScaffoldState>();
@@ -29,71 +28,88 @@ class ConnexionState extends State<Connexion> implements ConnexionContract {
   Future<List<User>> userslist;
   List<User> users;
 
-  ConnexionPresenter _presenter;
-
   int count;
 
 //  User user;
-  ConnexionState() {
+  /*ConnexionState() {
     _presenter = new ConnexionPresenter(this);
-  }
+  }*/
 
   @override
   void initState() {
     super.initState();
     dbHelper = DatabaseHelper.instance;
-    //refreshUserList();
+    refreshUserList();
     erreur = '';
   }
+
 
   refreshUserList() {
     userslist = dbHelper.getUsers();
     userslist.then((data) {
-      setState(() async {
-        if (data != null) {
+      if (data != null) {
+        print("les Utilisateurs: $data taille ${data.length}");
+        setState(() {
           this.users = data;
-          this.count = data.length;
+          //this.count = data.length;
+        });
+//        print(this.users);
+        if (users.length != 0) {
+          for (var i = 0; i < users.length; i++) {
+            print("user $i -> ${users[i].getUsername}");
+          }
         }
-      });
-    });
-    for (var i = 0; i < users.length; i++) {
-      print(users[i]);
-    }
+      }
+    }).catchError((onError) => print("Une erreur s'est produite: $onError"));
+    //print("USERS: $users");
   }
 
   int verify(_username, _password, users) {
     var result = 0;
-    for (var i = 0; i < users.length; i++) {
-      var user = users[i];
-      if (user['username'] == _username && user['password'] == _password) {
-        return 1;
+    if (users != null && users.length != 0) {
+      for (var i = 0; i < users.length; i++) {
+        var user = users[i];
+        if (user['username'] == _username && user['password'] == _password) {
+          return 1;
+        }
       }
     }
     return result;
   }
 
   onPressed(BuildContext context) {
-    Navigator.of(context).pushReplacementNamed('/home');
-    /*if (_controllerUsername.text != null && _controllerPassword.text != null) {
+    var access = 0;
+    if (_controllerUsername.text != "" && _controllerPassword.text !="") {
       setState(() {
         //isloading = true;
         _username = _controllerUsername.text;
         _password = _controllerPassword.text;
       });
-      //if (dbHelper.verify(_username, _password) != null) {
-      if (verify(_username, _password, this.users) == 1) {
-        print('User in Database');
-        //print(dbHelper.verify(_username, _password));
-        //Navigator.of(context).pushReplacementNamed('/home');
-      } else {
-        print('Erreur Login ou mdp incorrect ou non inscris');
-
+      print("USERS: $users");
+      for (var i = 0; i < users.length; i++) {
+        var user = users[i];
+        if (user.getUsername == _username && user.getPassword == _password) {
+          print('User in Database: Merci ${user.getUsername}!');
+          Navigator.of(context).pushReplacementNamed('/home');
+          setState(() {
+            access = 1;
+            _controllerPassword.text = "";
+            _controllerUsername.text = "";
+          });
+        }
+      }
+      if (access == 0) {
+        print('login ou mdp incorrect');
         setState(() {
           erreur = 'Erreur Login ou mdp incorrect ou non inscris';
         });
       }
-      // _presenter.doLogin(_username, _password);
-    }*/
+    } else {
+      print("l'un des champs est vide");
+      setState((){
+        erreur = "l'un des champs est vide";
+      });
+    }
   }
 
   void _showSnackBar(String text) {
@@ -169,9 +185,9 @@ class ConnexionState extends State<Connexion> implements ConnexionContract {
                   TextField(
                     controller: _controllerUsername,
                     decoration: InputDecoration(
-                        labelText: 'Numero',
+                        labelText: 'Pseudo',
                         labelStyle: TextStyle(),
-                        hintText: "Votre Numero de Telephone"),
+                        hintText: "Votre Nom d'Utilisateur"),
                     //onChanged: (String value){onChanged(value,2);}
                   ),
                   TextField(
@@ -246,4 +262,5 @@ class ConnexionState extends State<Connexion> implements ConnexionContract {
           ),
         ));
   }
+
 }

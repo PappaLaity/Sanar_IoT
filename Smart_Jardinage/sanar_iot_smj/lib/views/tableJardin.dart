@@ -14,38 +14,59 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-class TableJardin extends StatefulWidget {
+class TableJardinClass extends StatefulWidget {
+  TableJardinClass({Key key, this.devicesId, this.tableName});
+  final devicesId;
+  final tableName;
   @override
-  TableState createState() => TableState();
-
+  TableState createState() => TableState(devicesId, tableName);
 }
 
-class TableState extends State<TableJardin> {
+class TableState extends State<TableJardinClass> {
+  final String device;
+  final String tablename;
+  var urlDevices;
+  TableState(this.device, this.tablename) {
+    urlDevices = "https://api.waziup.io/api/v2/devices/" + device;
+  }
 
-  static String device = "b827ebfbd8ad_15";
-  static String urlDevices ="https://api.waziup.io/api/v2/devices/"+device;
+  //static String device = "b827ebfbd8ad_15";
+
   List data;
-  int TC = 0 ,SM = 0,HM=0;
+  int TC = 0, SM = 0, HM = 0, WT = 0, ST = 0;
 
   Future<String> getJsonData() async {
     //var response = '';
-      var response = await http.get(
-        Uri.encodeFull(urlDevices),
-        headers: {"Accept": "application/json"}
-      );
-      print('Data');
-      //print(response.body);
-      setState((){
-          var convertDataToJson =json.decode(response.body);// JSON.decode(response.body);
-          data = convertDataToJson['sensors'];
-          TC = data[1]['value']['value'];
-          SM = data[2]['value']['value'];
-          HM = data[3]['value']['value'];
-      });
+    print(urlDevices);
+    var response = await http.get(Uri.encodeFull(urlDevices),
+        headers: {"Accept": "application/json"});
+    print('Data');
+    //print(response.body);
+    setState(() {
+      var convertDataToJson =
+          json.decode(response.body); // JSON.decode(response.body);
+      data = convertDataToJson['sensors'];
+      if (data[1]['value']['value']!=null) {
+        TC = data[1]['value']['value'];
+      }
+      if (data[2]['value']['value']!=null) {
+        SM = data[2]['value']['value'];
+      }
+      if (data[3]['value']['value']!=null) {
+        HM = data[3]['value']['value'];
+      }
+      /*
+      if (data[4]['value']['value']!=null) {
+        ST = data[4]['value']['value'];
+      }
+      if (data[5]['value']['value']!=null) {
+        WT = data[5]['value']['value'];
+      }*/
+    });
     print(data[1]['value']['value']); //Air Humidity HM
     print(data[2]['value']['value']); // SM 2
     print(data[3]['value']['value']); // TC
-    return "success"; 
+    return "success";
   }
 
   @override
@@ -53,7 +74,6 @@ class TableState extends State<TableJardin> {
     super.initState();
     this.getJsonData();
   }
-
 
   /*var Listable2 = {
     "gateway_id":"b827ebfbd8ad",
@@ -103,7 +123,7 @@ class TableState extends State<TableJardin> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('SMJ TABLE-ID',
+        title: Text(tablename,
             style: TextStyle(fontFamily: 'Monserrat', fontSize: 20.0)),
       ),
       body: new ListView(
@@ -130,74 +150,120 @@ class TableState extends State<TableJardin> {
                   Row(
                     children: <Widget>[
                       SizedBox(
-                        width: 5.0,
+                        width: 15.0,
                       ),
                       /*Icon(Icons.tonality,
                         color: Colors.green[200],
                         size: 65.0,
                       ),*/
                       //Text(TableInfo['Tmp']),
-                      Image.asset('images/tmpe.png',
-                        height: 80.0, width: 80.0,),
+                      Image.asset(
+                        'images/tmpe.png',
+                        height: 40.0,
+                        width: 40.0,
+                      ),
                       SizedBox(
                         width: 0.0,
                       ),
-                      Text('$TC Deg',style: TextStyle(
-                          fontSize: 25.0
-                      ),), // TEmperature
+                      Text(
+                        '$TC Deg',
+                        style: TextStyle(fontSize: 35.0),
+                      ), // TEmperature
                       SizedBox(
-                        width: 20.0,
+                        width: 30.0,
                       ),
                       /*Icon(Icons.opacity,
                         color: Colors.blue[500],
                         size: 65.0,),
                       //Text(TableInfo['Tmp']),*/
-                      Image.asset('images/hm.png',
-                        height: 80.0, width: 80.0,),
+                      Image.asset(
+                        'images/hm.png',
+                        height: 40.0,
+                        width: 40.0,
+                      ),
                       SizedBox(
                         width: 0.0,
                       ),
-                      Text("$HM %",style: TextStyle(
-                        fontSize: 25.0
-                      ),), // humidity
+                      Text(
+                        "$HM %",
+                        style: TextStyle(fontSize: 35.0),
+                      ), // humidity
                     ],
                   ),
                   SizedBox(
-                        height: 50.0,
-                      ),
+                    height: 50.0,
+                  ),
                   Row(
                     children: <Widget>[
                       SizedBox(
-                        width: 5.0,
+                        width: 15.0,
                       ),
                       /*
                       Icon(Icons.tonality,
                         color: Colors.green[200],
                         size: 65.0,),
                       //Text(TableInfo['Tmp']),*/
-                      Image.asset('images/stmp.jpeg',
-                      height: 80.0, width: 80.0,),
+                      Image.asset(
+                        'images/stmp.jpeg',
+                        height: 40.0,
+                        width: 40.0,
+                      ),
                       SizedBox(
                         width: 5.0,
                       ),
-                      Text('49 Deg',style: TextStyle(
-                          fontSize: 25.0
-                      ),), // Soil Temp
+                      Text(
+                        '$ST Deg',
+                        style: TextStyle(fontSize: 35.0),
+                      ), // Soil Temp
                       SizedBox(
-                        width: 25.0,
+                        width: 30.0,
                       ),
 /*                      Icon(Icons.tonality,
                         color: Colors.green[200],
                         size: 65.0,),
                       //Text(TableInfo['Tmp']),*/
-                      Image.asset('images/shm.png',
-                        height: 80.0, width: 80.0,),
+                      Image.asset(
+                        'images/shm.png',
+                        height: 40.0,
+                        width: 40.0,
+                      ),
                       SizedBox(
                         width: 07.0,
                       ),
-                      Text('$SM %',style: TextStyle(
-                          fontSize: 25.0
-                      ),), // Soil Hum
+                      Text(
+                        '$SM %',
+                        style: TextStyle(fontSize: 35.0),
+                      ), // Soil Hum
+                    ],
+                  ),
+                  SizedBox(
+                    height: 50.0,
+                  ),
+                  Row(
+                    children: <Widget>[
+                      SizedBox(
+                        width: 15.0,
+                      ),
+                      /*
+                      Icon(Icons.tonality,
+                        color: Colors.green[200],
+                        size: 65.0,),
+                      //Text(TableInfo['Tmp']),*/
+                      Image.asset(
+                        'images/watertmp.jpg',
+                        height: 40.0,
+                        width: 40.0,
+                      ),
+                      SizedBox(
+                        width: 5.0,
+                      ),
+                      Text(
+                        '$WT Deg',
+                        style: TextStyle(fontSize: 35.0),
+                      ), // Soil Temp
+                      SizedBox(
+                        width: 30.0,
+                      ), // Soil Hum
                     ],
                   )
                 ],
@@ -205,9 +271,9 @@ class TableState extends State<TableJardin> {
             ),
           ),
           Container(
-            // Les Actions -- Notifications
-            // Suivant les param emettre des notifs
-          )
+              // Les Actions -- Notifications
+              // Suivant les param emettre des notifs
+              )
         ],
       ),
     );

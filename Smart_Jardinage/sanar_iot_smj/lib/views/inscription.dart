@@ -42,7 +42,7 @@ class InscriptionState extends State<Inscription> {
 
   onPressed(BuildContext context) {
     //Navigator.of(context).pushReplacementNamed('/home');
-    if (true) {
+    if (_controllerUser.text!="" && _controllerPassword.text!="") {
       setState(() {
         pseudo = _controllerUser.text;
         password = _controllerPassword.text;
@@ -52,16 +52,13 @@ class InscriptionState extends State<Inscription> {
       });
       var utilisateur = dbHelper.saveUser(this.user);
       utilisateur.then((data) {
-        if (data != null) {
-          print('Inscription Reussie');
-          print(data.getUsername);
-        }
-      }).catchError((onError){
+        print('Inscription Reussie');
+        print(data);
+        Navigator.of(context).pushReplacementNamed('/home');
+      }).catchError((onError) {
         print('Erreur quelque pqrt');
         print(onError);
       });
-      //Navigator.of(context).pushReplacementNamed('/home');
-
     } else {
       setState(() {
         erreur = "l'un des champs est nul";
@@ -69,7 +66,7 @@ class InscriptionState extends State<Inscription> {
     }
   }
 
- /* void onChanged(value, flag) {
+  /* void onChanged(value, flag) {
     setState(() {
       if (flag == 1) {
         pseudo = value;
@@ -149,7 +146,7 @@ class InscriptionState extends State<Inscription> {
                     labelStyle: TextStyle(),
                     hintText: "l'Identifiant de la Passerelle"),
                 //onChanged: (String value){onChanged(value,2);}
-              ),*/
+              ), 
               TextField(
                 controller: _controllerNumber,
                 decoration: InputDecoration(
@@ -157,7 +154,7 @@ class InscriptionState extends State<Inscription> {
                     labelStyle: TextStyle(),
                     hintText: "Votre Numero de Telephone"),
                 //onChanged: (String value){onChanged(value,2);}
-              ),
+              ),*/
               TextField(
                 obscureText: true,
                 controller: _controllerPassword,

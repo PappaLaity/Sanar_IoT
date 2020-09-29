@@ -9,6 +9,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:sanar_iot_smj/db/database_helper.dart';
 import 'package:sanar_iot_smj/models/table.dart';
+import 'package:sanar_iot_smj/views/tableJardin.dart';
 
 class Accueil extends StatefulWidget {
   @override
@@ -16,9 +17,8 @@ class Accueil extends StatefulWidget {
 }
 
 class AcceuilState extends State<Accueil> {
-
   // Recuperer a la DB la liste des tables
-  
+/*
   List ListTable = [
     {
       'Nom': 'Table 1',
@@ -35,70 +35,142 @@ class AcceuilState extends State<Accueil> {
       'Type Culture': 'Navet',
       'Data': {'Tmp': '34', 'HM': '70', 'SM': '82', 'ST': '29'}
     }
-  ];
+  ];*/
 
+  List<TableJardin> tablesculture = [];
+  DatabaseHelper dbHelper = DatabaseHelper.instance;
+  String erreur = "";
+  String success = "";
 
-  List<Table> tablesculture = [];
-  final dbHelper = DatabaseHelper.instance;
-  
+  @override
+  void initState() {
+    super.initState();
+    dbHelper = DatabaseHelper.instance;
+    refreshTableList();
+    erreur = '';
+  }
+
+  refreshTableList() {
+    tablesculture.clear();
+    final listTables = dbHelper.queryAllRows();
+    listTables.then((onValue) {
+      setState(() {
+        if (onValue.length != 0) {
+          for (var i = 0; i < onValue.length; i++) {
+            var data = onValue[i];
+            tablesculture.add(TableJardin.map(data));
+          }
+        }
+      });
+    }).catchError((onError) {});
+  }
+
+  deleteTable(tableId) {
+    var ack = dbHelper.deleteTable(tableId);
+    ack.then((onValue) {
+      print('Delete Successfull: $onValue');
+      refreshTableList();
+    }).catchError((onError) {
+      print('Error : $onError ');
+    });
+  }
+
+  Future<void> refreshList() {
+    final listTables = dbHelper.queryAllRows();
+    tablesculture.clear();
+    listTables.then((onValue) {
+      setState(() {
+        if (onValue.length != 0) {
+          for (var i = 0; i < onValue.length; i++) {
+            var data = onValue[i];
+            tablesculture.add(TableJardin.map(data));
+          }
+        }
+      });
+    }).catchError((onError) {});
+    //return null;
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-        leading: Icon(Icons.local_florist,
-        size:36,
-        color: Colors.black,),
-          title: Text('SMART MICRO JARDINAGE',
-              style: TextStyle(fontFamily: 'Monserrat', fontSize: 20.0)),
-          /*actions: <Widget>[
+      appBar: AppBar(
+        leading: Icon(
+          Icons.local_florist,
+          size: 36,
+          color: Colors.black,
+        ),
+        title: Text('SMART MICRO JARDINAGE',
+            style: TextStyle(fontFamily: 'Monserrat', fontSize: 20.0)),
+        /*actions: <Widget>[
             IconButton(icon: Icon(Icons.add,color: Colors.black,size: 36.0,),
           onPressed: (){Navigator.of(context).pushReplacementNamed('/addTable');},)
           ],*/
-        ),
-        body:
-            ListView.builder(
-            itemCount: ListTable.length,
-              itemBuilder: (BuildContext context, int index) {
-                return new Card(
-                  child: Container(
-                    padding: EdgeInsets.all(15.0),
-                    child: Column(
-                      children: <Widget>[
-                        ListTile(
+      ),
+      body: RefreshIndicator(
+          onRefresh: refreshList,
+          child: ListView.builder(
+            itemCount: tablesculture.length,
+            itemBuilder: (BuildContext context, int index) {
+              return new Card(
+                child: Container(
+                  padding: EdgeInsets.all(15.0),
+                  child: Column(
+                    children: <Widget>[
+                      ListTile(
                           onTap: () {
-                            Navigator.of(context).pushNamed('/table');
+                            //Navigator.of(context).pushNamed('/table',);
+                            //Navigator.push(context, route)
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => new TableJardinClass(
+                                        devicesId:
+                                            tablesculture[index].tableDevices,
+                                        tableName:
+                                            tablesculture[index].tableName,
+                                      )),
+                            );
                           },
                           title: Text('Table ${index}'),
-                          subtitle: Text(
-                              'Culture de ' + ListTable[index]['Type Culture']),
+                          subtitle: Text('Culture de ' +
+                              tablesculture[index].tableCulture),
                           leading: Icon(Icons.touch_app),
-                        ),
-                      ],
-                    ),
+                          trailing: IconButton(
+                            icon: Icon(Icons.delete),
+                            onPressed: () {
+                              deleteTable(tablesculture[index].tableDevices);
+                            },
+                          )),
+                    ],
                   ),
-                );
-              },
-            ),
+                ),
+              );
+            },
+          )),
       floatingActionButton: FloatingActionButton(
-        onPressed:(){
+        onPressed: () {
           Navigator.of(context).pushNamed('/addTable');
         },
-        child:Icon(Icons.add,size: 36.0,color: Colors.white,),
+        child: Icon(
+          Icons.add,
+          size: 36.0,
+          color: Colors.white,
+        ),
         backgroundColor: Colors.teal,
       ),
     );
   }
 
   void _AllTables() async {
-
     final allRows = await dbHelper.queryAllRows();
     tablesculture.clear();
 
-    allRows.forEach((row) => tablesculture.add(TableJardin.map(row)));
+    allRows.forEach((row) => print(row));
+
+    // allRows.forEach((row) => tablesculture.add(TableJardin.map(row)));
 
     print('Query done.');
-    setState(() {}); 
-
-  }  
+    setState(() {});
+  }
 }

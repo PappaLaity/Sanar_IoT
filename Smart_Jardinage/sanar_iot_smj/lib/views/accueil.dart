@@ -65,14 +65,14 @@ class AcceuilState extends State<Accueil> {
     }).catchError((onError) {});
   }
 
-  deleteTable(tableId) {
-    var ack = dbHelper.deleteTable(tableId);
-    ack.then((onValue) {
-      print('Delete Successfull: $onValue');
-      refreshTableList();
-    }).catchError((onError) {
-      print('Error : $onError ');
-    });
+  void _deleteTable(tableId) {
+    
+    final rowsDeleted =  dbHelper.deleteTable(tableId);
+
+    print('rows $rowsDeleted is deleted ');
+
+    this.refreshList();
+     
   }
 
   Future<void> refreshList() {
@@ -139,7 +139,7 @@ class AcceuilState extends State<Accueil> {
                           trailing: IconButton(
                             icon: Icon(Icons.delete),
                             onPressed: () {
-                              deleteTable(tablesculture[index].tableDevices);
+                              _deleteTable(tablesculture[index].tableId);
                             },
                           )),
                     ],

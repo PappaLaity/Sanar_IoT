@@ -126,6 +126,7 @@ class DatabaseHelper {
   // Delete Table
   Future<int> deleteTable(int id) async {
     var dbClient = await db;
+    
     return await dbClient.delete(
       tableJardin,
       where: 'tableId = ?',

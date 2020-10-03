@@ -2,14 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e55ec6f2-0041-4c44-afb7-0540a2177452" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/res/values/strings_en.arb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Smart_Jardinage/sanar_iot_smj/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/Smart_Jardinage/sanar_iot_smj/.flutter-plugins-dependencies" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart_Jardinage/sanar_iot_smj/ios/Flutter/flutter_export_environment.sh" beforeDir="false" afterPath="$PROJECT_DIR$/Smart_Jardinage/sanar_iot_smj/ios/Flutter/flutter_export_environment.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart_Jardinage/sanar_iot_smj/lib/db/database_helper.dart" beforeDir="false" afterPath="$PROJECT_DIR$/Smart_Jardinage/sanar_iot_smj/lib/db/database_helper.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart_Jardinage/sanar_iot_smj/lib/models/table.dart" beforeDir="false" afterPath="$PROJECT_DIR$/Smart_Jardinage/sanar_iot_smj/lib/models/table.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart_Jardinage/sanar_iot_smj/lib/views/addTable.dart" beforeDir="false" afterPath="$PROJECT_DIR$/Smart_Jardinage/sanar_iot_smj/lib/views/addTable.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Smart_Jardinage/sanar_iot_smj/lib/views/accueil.dart" beforeDir="false" afterPath="$PROJECT_DIR$/Smart_Jardinage/sanar_iot_smj/lib/views/accueil.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Smart_Jardinage/sanar_iot_smj/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/Smart_Jardinage/sanar_iot_smj/pubspec.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart_Jardinage/sanar_iot_smj/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/Smart_Jardinage/sanar_iot_smj/pubspec.yaml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -27,8 +23,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Smart_Jardinage/sanar_iot_smj/lib/models/table.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="396">
-              <caret line="18" column="32" lean-forward="true" selection-start-line="18" selection-start-column="32" selection-end-line="18" selection-end-column="32" />
+            <state relative-caret-position="176">
+              <caret line="8" selection-start-line="8" selection-end-line="8" />
             </state>
           </provider>
         </entry>
@@ -101,7 +97,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
+      <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -133,14 +129,22 @@
               <item name="Smart_Jardinage" type="462c0819:PsiDirectoryNode" />
               <item name="sanar_iot_smj" type="462c0819:PsiDirectoryNode" />
               <item name="lib" type="462c0819:PsiDirectoryNode" />
+              <item name="db" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Sanar_IoT" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Sanar_IoT" type="462c0819:PsiDirectoryNode" />
+              <item name="Smart_Jardinage" type="462c0819:PsiDirectoryNode" />
+              <item name="sanar_iot_smj" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
               <item name="models" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="AndroidView" />
       <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -187,16 +191,22 @@
       <workItem from="1600821934770" duration="14000" />
       <workItem from="1601244512203" duration="935000" />
       <workItem from="1601257186409" duration="626000" />
+      <workItem from="1601310537890" duration="105000" />
+      <workItem from="1601414037791" duration="54000" />
+      <workItem from="1601480418892" duration="32000" />
+      <workItem from="1601510276163" duration="84000" />
+      <workItem from="1601513009613" duration="228000" />
+      <workItem from="1601513494783" duration="835000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="8050000" />
+    <option name="totallyTimeSpent" value="9160000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="-1" width="1920" height="1055" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Build Variants" order="3" side_tool="true" />
@@ -219,15 +229,15 @@
       <window_info anchor="bottom" id="Flutter Performance" order="11" side_tool="true" />
       <window_info anchor="bottom" id="Database Changes" order="12" />
       <window_info anchor="bottom" id="Version Control" order="13" />
-      <window_info anchor="bottom" id="Terminal" order="14" weight="0.2122905" />
-      <window_info active="true" anchor="bottom" id="Dart Analysis" order="15" visible="true" weight="0.31843576" />
+      <window_info anchor="bottom" id="Terminal" order="14" visible="true" weight="0.16536313" />
+      <window_info anchor="bottom" id="Dart Analysis" order="15" weight="0.32486188" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Maven" order="3" />
       <window_info anchor="right" id="Palette" order="4" />
       <window_info anchor="right" id="Flutter Inspector" order="5" />
-      <window_info anchor="right" id="Device File Explorer" order="6" side_tool="true" />
+      <window_info anchor="right" id="Device File Explorer" order="6" side_tool="true" visible="true" weight="0.15913978" />
       <window_info anchor="right" id="Flutter Outline" order="7" />
       <window_info anchor="right" id="Capture Analysis" order="8" />
       <window_info anchor="right" id="Database" order="9" />
@@ -239,6 +249,7 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/Smart_Jardinage/sanar_iot_smj/lib/db/Database.dart" />
     <entry file="file://$PROJECT_DIR$/Smart_Jardinage/sanar_iot_smj/.flutter-plugins">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -271,17 +282,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Smart_Jardinage/sanar_iot_smj/lib/db/Database.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="528">
-          <caret line="24" column="5" selection-start-line="24" selection-start-column="5" selection-end-line="24" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Smart_Jardinage/sanar_iot_smj/lib/models/table.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="18" column="32" lean-forward="true" selection-start-line="18" selection-start-column="32" selection-end-line="18" selection-end-column="32" />
+        <state relative-caret-position="176">
+          <caret line="8" selection-start-line="8" selection-end-line="8" />
         </state>
       </provider>
     </entry>

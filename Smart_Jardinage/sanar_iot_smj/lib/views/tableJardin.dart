@@ -111,8 +111,8 @@ class TableState extends State<TableJardinClass> {
   };
 */
   var TableInfo = {
-    'Nom': 'Table 1',
-    'Type Culture': 'Carotte',
+    'Nom': 'Table 4',
+    'Type Culture': 'Tomate',
     'Tmp': '38',
     'HM': '68',
     'SM': '78',
